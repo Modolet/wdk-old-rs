@@ -1,7 +1,6 @@
 #![no_std]
 
 extern crate alloc;
-extern crate wdk_panic;
 
 use wdk_sys::{ntddk::RtlInitUnicodeString, PUNICODE_STRING, UNICODE_STRING};
 
