@@ -19,9 +19,12 @@
 use core::alloc::{GlobalAlloc, Layout};
 
 use wdk_sys::{
-    ntddk::{ExAllocatePool2, ExFreePool},
-    POOL_FLAG_NON_PAGED, SIZE_T, ULONG,
+    ntddk::ExFreePool, POOL_TYPE, PVOID, SIZE_T, ULONG, _POOL_TYPE::NonPagedPoolExecute,
 };
+
+extern "C" {
+    pub fn ExAllocatePoolWithTag(Flags: POOL_TYPE, NumberOfBytes: SIZE_T, Tag: ULONG) -> PVOID;
+}
 
 /// Allocator implementation to use with `#[global_allocator]` to allow use of
 /// [`core::alloc`].
@@ -33,7 +36,7 @@ pub struct WDKAllocator;
 
 // The value of memory tags are stored in little-endian order, so it is
 // convenient to reverse the order for readability in tooling (ie. Windbg)
-const RUST_TAG: ULONG = u32::from_ne_bytes(*b"rust");
+const RUST_TAG: ULONG = u32::from_ne_bytes(*b"xxrs");
 
 // SAFETY: This is safe because the WDK allocator:
 //         1. can never unwind since it can never panic
@@ -45,7 +48,7 @@ unsafe impl GlobalAlloc for WDKAllocator {
         let ptr =
             // SAFETY: `ExAllocatePool2` is safe to call from any `IRQL` <= `DISPATCH_LEVEL` since its allocating from `POOL_FLAG_NON_PAGED`
             unsafe {
-                ExAllocatePool2(POOL_FLAG_NON_PAGED, layout.size() as SIZE_T, RUST_TAG)
+                ExAllocatePoolWithTag(NonPagedPoolExecute, layout.size() as SIZE_T, RUST_TAG)
             };
         if ptr.is_null() {
             return core::ptr::null_mut();
