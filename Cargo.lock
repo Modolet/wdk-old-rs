@@ -699,16 +699,9 @@ dependencies = [
 ]
 
 [[package]]
-name = "wdk-panic"
-version = "0.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6f56558972c0d7069aa3b2b409752e65db7ba3fd24fcffc3887d19b6e48585e4"
-
-[[package]]
 name = "wdk-string"
 version = "0.1.0"
 dependencies = [
- "wdk-panic",
  "wdk-sys",
  "widestring",
 ]
