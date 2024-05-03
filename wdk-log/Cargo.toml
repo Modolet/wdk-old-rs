@@ -6,4 +6,4 @@ edition = "2021"
 [dependencies]
 wdk-sys = "0.2.0"
 log = "0.4.21"
-widestring = "1.1.0"
+widestring = {version = "1.1.0", default-features = false,features = ["alloc"]}
