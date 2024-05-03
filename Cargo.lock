@@ -703,6 +703,7 @@ name = "wdk-string"
 version = "0.1.0"
 dependencies = [
  "wdk-sys",
+ "widestring",
 ]
 
 [[package]]
