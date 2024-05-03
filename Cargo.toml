@@ -1,5 +1,2 @@
 [workspace]
 members = ["wdk-alloc", "wdk-log", "wdk-string"]
-
-[dependencies]
-wdk-sys = "0.2.0"

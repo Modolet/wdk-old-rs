@@ -4,6 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-wdk-sys.workspace = true
+wdk-sys = "0.2.0"
 log = "0.4.21"
 widestring = "1.1.0"
