@@ -1,5 +1,7 @@
 use wdk_sys::{ntddk::RtlInitUnicodeString, PUNICODE_STRING, UNICODE_STRING};
 
+extern crate alloc;
+
 pub trait NtToString {
     fn to_string(&self) -> alloc::string::String;
 }
