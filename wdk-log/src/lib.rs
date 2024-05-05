@@ -32,7 +32,7 @@ impl log::Log for WdkLogger {
             );
             for line in message.lines() {
                 let message = widestring::U16CString::from_str(line).unwrap();
-                let format = CString::new("%ws").unwrap();
+                let format = CString::new("%ws\n").unwrap();
 
                 unsafe {
                     DbgPrint(format.as_ptr() as _, message.as_ptr());
