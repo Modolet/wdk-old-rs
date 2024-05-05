@@ -30,10 +30,13 @@ impl log::Log for WdkLogger {
                 record.line().unwrap_or(0),
                 record.args()
             );
-            let message = widestring::U16CString::from_str(message).unwrap();
-            let format = CString::new("%ws").unwrap();
-            unsafe {
-                DbgPrint(format.as_ptr() as _, message.as_ptr());
+            for line in message.lines() {
+                let message = widestring::U16CString::from_str(line).unwrap();
+                let format = CString::new("%ws").unwrap();
+
+                unsafe {
+                    DbgPrint(format.as_ptr() as _, message.as_ptr());
+                }
             }
         }
     }
