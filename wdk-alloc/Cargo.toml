@@ -4,4 +4,4 @@ version = "0.2.0"
 edition = "2021"
 
 [dependencies]
-wdk-sys = { git = "https://github.com/microsoft/windows-drivers-rs" }
+wdk-sys = "0.2.0"
